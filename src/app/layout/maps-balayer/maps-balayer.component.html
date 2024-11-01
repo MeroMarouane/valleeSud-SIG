@@ -1,0 +1,125 @@
+<div class="w-[90%] absolute z-10 top-4 right-1/2 left-1/2 translate-x-[-50%]">
+  <app-header class=""></app-header>
+
+  <div class="relative" *ngIf="site$ | async as site">
+    <app-multiselect-missions-list
+      class="absolute top-[1.5rem] left-0"
+      [site]="site"
+      (change)="missionsChange($event)"
+    ></app-multiselect-missions-list>
+  </div>
+</div>
+<main class="h-full">
+  <aol-map id="balayer" #map width="100%" height="100%">
+    <aol-interaction-default></aol-interaction-default>
+    <aol-view [zoom]="6">
+      <aol-coordinate
+        [x]="-114575431300.73878"
+        [y]="3475766.6239057416"
+      ></aol-coordinate>
+      <aol-control-zoom></aol-control-zoom>
+      <aol-control *ngIf="!!(siteFeature$ | async) === true">
+        <aol-content>
+          <div class="dsm-btn ol-unselectable ol-control img-btn">
+            <app-mission-files-switch
+              [map]="map.instance"
+              [siteFeature]="siteFeature$ | async"
+              [mission]="missions[0]"
+              [swipeCtrl]="swipeCtrl"
+            ></app-mission-files-switch>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control *ngIf="!!(siteFeature$ | async) === true">
+        <aol-content>
+          <div class="dsm-btn second ol-unselectable ol-control img-btn">
+            <app-mission-files-switch
+              [map]="map.instance"
+              [siteFeature]="siteFeature$ | async"
+              [mission]="missions[1]"
+              [swipeCtrl]="swipeCtrl"
+              [swipeRight]="true"
+            ></app-mission-files-switch>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div class="ol-control ol-unselectable layer-switcher-btn">
+            <button
+              pButton
+              class="p-button-secondary"
+              [ngClass]="{ 'p-button--black': menuOpen }"
+              icon="pi pi-ellipsis-v"
+              (click)="menuOpen = true"
+              [matMenuTriggerFor]="layersMenu"
+            ></button>
+            <mat-menu
+              #layersMenu
+              xPosition="before"
+              yPosition="above"
+              (closed)="menuOpen = false"
+            >
+              <div
+                class="p-[14px_8px_6px] rounded-md bg-[#2A2E30] flex gap-[1.125rem] text-white secondary-text layers"
+              >
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Terrain')"
+                >
+                  <img
+                    src="../../../assets/earth-layer.png"
+                    alt="layer image"
+                  /><span>Terrain</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Satellite')"
+                >
+                  <img
+                    src="../../../assets/satellite-layer.png"
+                    alt="layer image"
+                  /><span>Satelite</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Plan')"
+                >
+                  <img
+                    src="../../../assets/streets-layer.png"
+                    alt="layer image"
+                  /><span>Plan</span>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+        </aol-content>
+      </aol-control>
+    </aol-view>
+    <!--TILE LAYERS-->
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Plan.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Terrain.visibility">
+      <aol-source-stamen [stamenLayer]="'terrain'"></aol-source-stamen>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Satellite.visibility">
+      <aol-source-xyz
+        url="http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-vector #polygonsLayer [zIndex]="10">
+      <aol-style>
+        <aol-style-stroke [width]="1" color="#501798"></aol-style-stroke>
+        <aol-style-fill color="rgba(80, 23, 152, 0.1)"></aol-style-fill>
+      </aol-style>
+      <aol-source-vector [wrapX]="false"> </aol-source-vector>
+    </aol-layer-vector>
+  </aol-map>
+</main>
+
+<div class="search-map-btn ol-unselectable ol-control">
+  <button><i class="pi pi-search"></i></button>
+</div>

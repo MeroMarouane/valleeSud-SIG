@@ -1,0 +1,22 @@
+
+.divider.p-divider {
+    margin: 1px;
+    padding: 0 1.25rem;  
+}
+
+.p-chips .p-chips-multiple-container {
+    width: 100%;
+}
+
+.p-fileupload .p-fileupload-buttonbar {
+    display: flex;
+    // justify-content: space-between;
+    .p-button {
+        margin-right: 0;
+    }
+}
+
+.field-checkbox {
+    display: flex;
+    gap: .625rem;
+}

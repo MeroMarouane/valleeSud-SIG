@@ -1,0 +1,67 @@
+<form class="w-[29.875rem]" [formGroup]="addClientForm">
+  <h1 class="mb-4">Ajouter un client</h1>
+  <p-fileUpload
+    name="logo[]"
+    class="up-btn"
+    chooseIcon="pi pi-camera"
+    chooseLabel=""
+    url=""
+    accept="image/*"
+    [auto]="true"
+  >
+    <ng-template pTemplate="toolbar">
+      <div class="mt-4 w-fit">
+        <span class="block mb-2 text-[.875rem] leading-4 text-[#828282]"
+          >Téléchargez votre logo client</span
+        >
+        <span class="block text-[.75rem] leading-4 text-[#7450E9] font-bold"
+          >Formats : SVG, PNG, JPG</span
+        >
+      </div>
+    </ng-template>
+  </p-fileUpload>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="name"
+      pInputText
+      placeholder="Nom de l'entreprise"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="email"
+      type="email"
+      pInputText
+      placeholder="Email"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="phone"
+      type="tel"
+      pInputText
+      placeholder="Numéro de Téléphone"
+    />
+  </div>
+  <div class="form-control">
+    <textarea
+      appMarkAsterisk
+      formControlName="adresse"
+      [rows]="2"
+      pInputTextarea
+      placeholder="Adresse"
+    ></textarea>
+  </div>
+  <div class="form-control">
+    <button
+      pButton
+      type="submit"
+      label="Ajouter"
+      class="uppercase p-button-secondary"
+      (click)="addClient()"
+    ></button>
+  </div>
+</form>

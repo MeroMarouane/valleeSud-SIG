@@ -1,0 +1,74 @@
+<div class="w-[29.875rem]" [formGroup]="addUserForm">
+  <h1>Modifier un utilisateur</h1>
+
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="name"
+      pInputText
+      placeholder="Nom"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="email"
+      type="email"
+      pInputText
+      placeholder="Email"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="password"
+      type="password"
+      pInputText
+      placeholder="Mot de passe"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="confirmPassword"
+      type="password"
+      pInputText
+      placeholder="Confirmer le mot de passe"
+    />
+  </div>
+  <div class="form-control">
+    <input
+      appMarkAsterisk
+      formControlName="phone"
+      type="tel"
+      pInputText
+      placeholder="Numéro de Téléphone"
+    />
+  </div>
+
+  <p-panel
+    header="Roles"
+    [toggleable]="true"
+    [collapsed]="true"
+    expandIcon="pi pi-angle-down"
+    collapseIcon="pi pi-angle-up"
+  >
+    <div class="field-checkbox" *ngFor="let role of roles$ | async">
+      <p-checkbox
+        [formControl]="$any(addUserForm.controls['role'])"
+        [value]="role.id"
+      ></p-checkbox>
+      <label for="ny">{{ role.name }}</label>
+    </div>
+  </p-panel>
+
+  <div class="form-control">
+    <button
+      pButton
+      type="submit"
+      label="Enregistrer"
+      class="uppercase p-button-secondary"
+      (click)="submit()"
+    ></button>
+  </div>
+</div>

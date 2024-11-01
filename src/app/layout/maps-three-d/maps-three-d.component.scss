@@ -1,0 +1,57 @@
+.layers {
+  text-align: center;
+  font-weight: 500;
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .layer {
+    cursor: pointer;
+  }
+}
+
+:host {
+  .p-button.p-button-secondary.p-button-icon-only:not(.p-button-text) {
+    background-color: #fff;
+  }
+  .p-button {
+    width: auto;
+    padding: 0.1875rem 0.4375rem;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  a .p-button {
+    width: 100%;
+    padding: 0.5rem 0;
+    color: #fff;
+    background-color: #1a1a1a;
+    text-align: center;
+  }
+  .back-btn.p-button {
+    width: 1.3125rem;
+  }
+
+  .p-button.p-button-secondary:enabled:hover {
+    background-color: #fff;
+    color: #1a1a1a;
+  }
+
+}
+::ng-deep .p-selectbutton .p-button {
+  padding: 0.15rem 0.45rem;
+  font-size: 12px;
+}
+::ng-deep .mat-menu-panel {
+  margin-right: 37px;
+  margin-top: -32px;
+}
+
+::ng-deep .mat-elevation-z4 {
+  max-width: none;
+}
+
+#potree_render_area > img {
+  bottom: 0 !important;
+  left: 0 !important;
+}

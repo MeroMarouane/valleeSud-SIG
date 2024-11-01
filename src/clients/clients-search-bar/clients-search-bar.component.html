@@ -1,0 +1,49 @@
+<div class="flex items-center p-4" [formGroup]="searchForm">
+  <div class="grid grid-cols-4 gap-4 basis-[100%]">
+    <div class="">
+      <input
+        class="w-full"
+        formControlName="company"
+        pInputText
+        placeholder="Nom de l'entreprise"
+      />
+    </div>
+    <div class="">
+      <input
+        class="w-full"
+        type="email"
+        formControlName="email"
+        pInputText
+        placeholder="Émail"
+      />
+    </div>
+    <div class="">
+      <input
+        class="w-full"
+        type="tel"
+        formControlName="phone"
+        pInputText
+        placeholder="Téléphone"
+      />
+    </div>
+    <div class="">
+      <input
+        class="w-full"
+        formControlName="group"
+        pInputText
+        placeholder="Groupe"
+      />
+    </div>
+  </div>
+
+  <div class="ml-4 basis-[4.375rem]">
+    <button
+      pButton
+      pRipple
+      icon="pi pi-search"
+      type="submit"
+      class="w-[4.375rem] h-12"
+      (click)="search()"
+    ></button>
+  </div>
+</div>

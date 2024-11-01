@@ -1,0 +1,93 @@
+<p-divider styleClass="divider"></p-divider>
+<article class="flex items-center h-[3.75rem] px-6 hover:shadow-[0px_7px_24px_rgba(0,0,0,0.12)]">
+  <div class="flex basis-[90%] cursor-pointer" [routerLink]="[client.id, 'users']">
+    <div class="flex gap-3 basis-1/5">
+      <div>
+        <img
+          [src]="
+            client.logo ? client.logo : '../../../../assets/company-logo.svg'
+          "
+          alt=""
+        />
+      </div>
+      <div class="flex flex-col items-start">
+        <span class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.75rem]"
+          >Nom de l'entreprise</span
+        >
+        <span
+          class="font-normal text-[#2A2E30] leading-[1.0625rem] h-[1.0625rem] block text-[.875rem]"
+          >{{ client.name }}</span
+        >
+      </div>
+    </div>
+    <div class="flex flex-col items-start basis-1/5">
+      <span class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.75rem]"
+        >Email</span
+      >
+      <span
+        class="font-normal text-[#2A2E30] leading-[1.0625rem] h-[1.0625rem] block text-[.875rem]"
+        >{{ client.email }}</span
+      >
+    </div>
+    <div class="flex flex-col items-start basis-1/5">
+      <span class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.75rem]"
+        >Téléphone</span
+      >
+      <span
+        class="font-normal text-[#2A2E30] leading-[1.0625rem] h-[1.0625rem] block text-[.875rem]"
+        >{{ client.phone }}</span
+      >
+    </div>
+    <div class="flex flex-col items-start basis-1/5">
+      <span class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.75rem]"
+        >Adresse</span
+      >
+      <span
+        class="font-normal text-[#2A2E30] leading-[1.0625rem] h-[1.0625rem] block text-[.875rem]"
+        >{{ client.adresse }}</span
+      >
+    </div>
+    <div class="flex flex-col items-start basis-1/5">
+      <span class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.75rem]"
+        >Groupe</span
+      >
+      <span
+        class="font-normal text-[#2A2E30] leading-[1.0625rem] h-[1.0625rem] block text-[.875rem]"
+      ></span>
+    </div>
+  </div>
+  <div class="flex justify-around basis-[10%]">
+    <div class="flex gap-2">
+      <div class="">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-secondary p-button-text"
+          (click)="deleteClient()"
+        ></button>
+      </div>
+      <div class="">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-secondary p-button-text"
+          (click)="editClient()"
+        ></button>
+      </div>
+    </div>
+    <div class="">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-angle-right"
+        class="p-button-rounded p-button-secondary"
+        [routerLink]="[client.id, 'users']"
+      ></button>
+    </div>
+  </div>
+</article>

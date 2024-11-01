@@ -1,0 +1,104 @@
+<p-divider styleClass="divider"></p-divider>
+<article
+  class="flex items-center h-[3.75rem] px-6 hover:shadow-[0px_7px_24px_rgba(0,0,0,0.12)]"
+>
+  <div class="flex gap-3 basis-1/6">
+    <div class="w-2 bg-green-400 h-7"></div>
+    <div class="flex flex-col items-start">
+      <span
+        class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+        >Nom de l'utilisateur</span
+      >
+      <span
+        class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+        >{{ user.name }}</span
+      >
+    </div>
+  </div>
+  <div class="flex flex-col items-start basis-1/6">
+    <span
+      class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+      >Email</span
+    >
+    <span
+      class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+      >{{ user.email }}</span
+    >
+  </div>
+  <div class="flex flex-col items-start basis-1/6">
+    <span
+      class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+      >Téléphone</span
+    >
+    <span
+      class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+      >{{ user.phone }}</span
+    >
+  </div>
+  <div class="flex flex-col items-start basis-1/12">
+    <span
+      class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+      >Role</span
+    >
+    <span
+      class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+    >
+      <ng-container *ngFor="let role of user.role; let last = last">{{
+        role.name + (last ? "" : ", ")
+      }}</ng-container>
+    </span>
+  </div>
+  <div class="flex flex-col items-start basis-1/6">
+    <span
+      class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+      >Sites</span
+    >
+    <span
+      class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+      >{{ user.projects?.join(", ") }}</span
+    >
+  </div>
+  <div class="flex flex-col items-start basis-1/6">
+    <span
+      class="font-normal text-[#7A7A7A] leading-[.875rem] text-[.65rem] xl:text-[.75rem]"
+      >Groupe</span
+    >
+    <span
+      class="font-normal text-[#2A2E30] leading-[1.0625rem] block h-[1.0625rem] text-[.775rem] xl:text-[.875rem]"
+      >Casablanca Groupe</span
+    >
+  </div>
+  <div class="flex justify-around basis-[10%]">
+    <div class="flex gap-2">
+      <div class="">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-secondary p-button-text"
+          (click)="deleteUser()"
+        ></button>
+      </div>
+      <div class="">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-secondary p-button-text"
+          (click)="editUser()"
+        ></button>
+      </div>
+    </div>
+    <div class="">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-angle-right"
+        class="p-button-rounded p-button-secondary"
+      ></button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,24 @@
+<div class="flex items-center p-4" [formGroup]="searchForm">
+    <div class="basis-[100%]">
+      <div class="">
+        <input
+          class="w-full"
+          formControlName="group"
+          pInputText
+          placeholder="Groupe"
+        />
+      </div>
+    </div>
+  
+    <div class="ml-4 basis-[4.375rem]">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-search"
+        type="submit"
+        class="w-[4.375rem] h-12"
+        (click)="search()"
+      ></button>
+    </div>
+  </div>
+  

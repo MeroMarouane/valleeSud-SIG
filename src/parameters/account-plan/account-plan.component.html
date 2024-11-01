@@ -1,0 +1,56 @@
+<section class="font-['lato'] w-full py-12">
+  <div
+    class="grid grid-cols-none gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-fit"
+  >
+    <article
+      *ngFor="let plan of plans"
+      class="min-w-[18.75rem] text-stone-900 flex flex-col items-center h-[467px] rounded-xl pt-8 pb-12"
+      [ngClass]="{
+        'plan-border': plan.active === false,
+        'plan-active-bg': plan.active === true
+      }"
+    >
+      <h2
+        class="text-xl font-black leading-8 tracking-[-0.3px]"
+        [ngClass]="{ 'plan-active-color': plan.active === true }"
+      >
+        XXXX Pack
+      </h2>
+      <h6 class="desc" [ngClass]="{ 'desc-active': plan.active === true }">
+        Customer Reach & Budget
+      </h6>
+      <p class="desc" [ngClass]="{ 'desc-active': plan.active === true }">
+        <b
+          class="text-5xl font-bold leading-[60px] tracking-[-2px]"
+          [ngClass]="{ 'plan-active-color': plan.active === true }"
+          >$000</b
+        >/Month
+      </p>
+      <p-divider class="w-full"></p-divider>
+      <h6 class="mb-4 desc" [ngClass]="{ 'desc-active': plan.active === true }">
+        Website Display
+      </h6>
+      <h6 class="mb-4 desc" [ngClass]="{ 'desc-active': plan.active === true }">
+        Hosting Type
+      </h6>
+      <h6
+        class="mb-auto desc"
+        [ngClass]="{ 'desc-active': plan.active === true }"
+      >
+        Financial Service Features
+      </h6>
+
+      <button
+        class="flex flex-col justify-center items-center gap-2.5 px-6 py-4 rounded-lg text-white text-base font-bold leading-6 w-[12.5rem]"
+        [ngClass]="{
+          'plan-btn-color': plan.active === false,
+          'plan-btn-bg': plan.active === false,
+          'plan-btn-active-color': plan.active === true,
+          'plan-btn-active-bg': plan.active === true
+        }"
+      >
+        Try for free
+      </button>
+    </article>
+  </div>
+</section>

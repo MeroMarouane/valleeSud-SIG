@@ -1,0 +1,23 @@
+<div class="w-[29.875rem] h-full flex flex-col justify-between" [formGroup]="addUsersForm">
+  <div class="">
+    <h1>Utilisateurs</h1>
+    <div class="form-control">
+      <p-autoComplete
+        formControlName="users"
+        [suggestions]="results"
+        (completeMethod)="searchUsers($event)"
+        [multiple]="true"
+      >
+      </p-autoComplete>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <button
+      pButton
+      type="submit"
+      label="Modifier"
+      class="uppercase p-button-secondary"
+    ></button>
+  </div>
+</div>

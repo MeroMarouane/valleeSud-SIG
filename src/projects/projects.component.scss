@@ -1,0 +1,48 @@
+
+$btn-color: #2a2e30;
+$right-pos: .75rem;
+.projects-page {
+  .p-button.p-button-secondary.p-button-text {
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: $btn-color;
+    background: #2a2e301a;
+    &:focus {
+      box-shadow: none;
+    }
+    &:hover {
+      color: $btn-color;
+      background-color: lighten($color: $btn-color, $amount: 75);
+    }
+  }
+  .ol-control.ol-zoom {
+    left: auto;
+    top: .75rem;
+    right: $right-pos;
+  }
+
+  .three-d-btn {
+    top: 6.25rem;
+    right: $right-pos;
+  }
+
+  .dsm-btn {
+    top: 9rem;
+    right: $right-pos;
+  }
+
+  .measure-btn {
+    top: 11.75rem;
+    right: $right-pos;
+  }
+  .layer-switcher-btn {
+    bottom: 6.625rem;
+    right: $right-pos;
+  }
+  .map-reset-btn {
+    top: 7.5rem;
+    right: $right-pos;
+  }
+}
+

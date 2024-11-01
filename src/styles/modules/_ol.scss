@@ -1,0 +1,113 @@
+$right-pos: 5%;
+
+.ol-control {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  button {
+    margin: 0;
+    border-radius: 6px;
+    color: #000;
+    background: #ffffff;
+    width: 32px;
+    height: 32px;
+    &:hover {
+      text-decoration: none;
+      background-color: #fff;
+    }
+    &:focus {
+      text-decoration: none;
+      background-color: #fff;
+    }
+  }
+}
+.ol-control.ol-zoom {
+  left: auto;
+  top: 8.5rem;
+  right: $right-pos;
+  border-radius: 4px;
+}
+.ol-zoom {
+  .ol-zoom-in {
+    border-radius: 6px 6px 0 0;
+    border-bottom: 1px solid rgba(42, 46, 48, 0.2);
+  }
+  .ol-zoom-out {
+    border-radius: 0 0 6px 6px;
+  }
+  button {
+    font-size: 1rem !important;
+  }
+}
+
+.search-map-btn {
+  top: 6rem;
+  right: $right-pos;
+}
+
+.img-btn {
+  overflow: hidden;
+  border-radius: 6px;
+
+  button {
+    background: transparent;
+  }
+}
+
+.three-d-btn {
+  top: 14.5rem;
+  right: $right-pos;
+}
+
+.dsm-btn {
+  top: 17.25rem;
+  right: $right-pos;
+}
+
+.measure-btn {
+  top: 20rem;
+  right: $right-pos;
+}
+
+.polygon-hide-btn {
+  top: 22.8rem;
+  right: $right-pos;
+}
+
+.map-reset-btn {
+  top: 14.5rem;
+  right: $right-pos;
+}
+
+.layer-switcher-btn {
+  bottom: 6.625rem;
+  right: $right-pos;
+}
+
+.ol-popup.default {
+  > div {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+  }
+  .anchor {
+    &::before {
+      border-color: #1a1a1a transparent;
+    }
+    &:after {
+      border-color: #1a1a1a transparent;
+    }
+  }
+  .ol-popup-content {
+    padding: 0;
+    > ul li {
+      padding: .625rem 1rem;
+      &:not(:first-child) {
+        border-top: 1px dashed rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}

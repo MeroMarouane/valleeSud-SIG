@@ -1,0 +1,31 @@
+<div class="mt-16" [formGroup]="loginForm">
+  <h1 class="text-center text-gray-500 uppercase">Welcome to Metagis</h1>
+
+  <div class="flex justify-between mt-64">
+    <span class="font-semibold">Sign in to continue</span>
+    <span class="text-gray-500">Not a member yet? <a [routerLink]="['/compte','register']" class="font-semibold text-black">Register</a></span>
+  </div>
+  <div class="form-control">
+    <input formControlName="email" pInputText placeholder="Email or Username" />
+  </div>
+  <div class="form-control">
+    <input formControlName="password" type="password" pInputText placeholder="Password" />
+  </div>
+  <div class="form-control">
+    <p-checkbox class="secondary-text" formControlName="rememberMe" [binary]="true" label="Keep me logged in"></p-checkbox>
+  </div>
+  <div class="form-control">
+    <button
+      pButton
+      type="submit"
+      label="Login Now"
+      class="uppercase p-button-secondary"
+      (click)="login()"
+    ></button>
+  </div>
+
+  <app-google-btn class="mt-4" text="S'enregister avec Google"></app-google-btn>
+  <div class="mt-4 text-center">
+    <span><a href="#">Forgot your password?</a></span>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div
+  class="projects-page flex justify-between w-full h-[85vh] min-h-[31.25rem] mb-4 gap-5"
+>
+  <div class="basis-1/3 rounded-[6px] shadow-[0px_4px_10px_rgba(0,0,0,0.15)] h-full flex flex-col">
+    <div
+      class="px-4 h-12 bg-[#F7F7F7] border-b border-solid border-[#DDDDDD] flex flex-grow-0 flex-shrink-0 basis-12 justify-between items-center"
+    >
+      <h2>Mes Sites ({{ (sites$ | async)?.length || 0 }})</h2>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Ajouter un site"
+        class="p-button-secondary p-button-text h-9 bg-[rgba(42,46,48,0.1)]"
+        (click)="addProject()"
+      ></button>
+    </div>
+    <div class="h-[4.5rem] flex justify-center items-center p-4">
+      <span class="w-full p-input-icon-right">
+        <input type="text" class="w-full" pInputText placeholder="Rechercher" />
+        <i class="pi pi-search"></i>
+      </span>
+    </div>
+    <div class="flex-auto overflow-auto">
+      <app-project-item
+        *ngFor="let site of sites$ | async"
+        [site]="site"
+      >
+      </app-project-item>
+    </div>
+  </div>
+  <div
+    class="basis-2/3 rounded-[6px] shadow-[0px_4px_10px_rgba(0,0,0,0.15)] overflow-hidden"
+  >
+    <app-projects-map></app-projects-map>
+  </div>
+</div>

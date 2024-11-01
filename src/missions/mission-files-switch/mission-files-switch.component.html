@@ -1,0 +1,40 @@
+<button
+  [disabled]="!!mission === false || mission?.orthophotos?.length === 0"
+  (click)="missionFilesBtnOpen = true"
+  [matMenuTriggerFor]="menu"
+>
+  <img
+    [src]="
+      missionFilesBtnOpen
+        ? '../../../assets/mission-files-close-btn.png'
+        : '../../../assets/mission-files-btn.png'
+    "
+    alt="Mission files button"
+  />
+</button>
+<mat-menu
+  #menu
+  xPosition="before"
+  class="mt-[-32px] mr-9 min-h-fit"
+  (closed)="missionFilesBtnOpen = false"
+>
+  <div
+    class="rounded-md bg-[#2A7C8E] text-white secondary-text mission-files-btns"
+  >
+    <button
+      class="block w-full text-center h-11 btn-border-b"
+      *ngFor="let file of mission?.orthophotos; let last = last"
+      [ngClass]="{ '': last === false }"
+      (click)="setOrtho(file)"
+    >
+      {{ file.type }}
+    </button>
+    <button
+      *ngIf="mission?.orthophotos?.length > 0 && currentFile"
+      class="block w-full text-center h-11 bg-[#b50707]"
+      (click)="resetLayer()"
+    >
+      Enlever tout
+    </button>
+  </div>
+</mat-menu>

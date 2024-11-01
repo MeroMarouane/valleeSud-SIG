@@ -1,0 +1,75 @@
+<section
+  class="w-[20rem] rounded-md shadow-[0px_4px_10px_rgba(0,0,0,0.15)] bg-white overflow-hidden"
+>
+  <div
+    class="bg-[#F7F7F7] h-12 border-b border-solid border-[#DDD] flex gap-[.375rem] items-center p-4"
+  >
+    <h1 class="font-bold text-[1rem] leading-5">Mes Sites</h1>
+    <span class="primary-text text-gray"
+      >({{ (sites$ | async)?.length || 0 }})</span
+    >
+  </div>
+  <div class="projects-list">
+    <p-listbox
+      [options]="$any(sites$ | async)"
+      optionLabel="name"
+      [(ngModel)]="selectedProject"
+      (ngModelChange)="projectChanged($event)"
+    >
+      <ng-template let-site pTemplate="item">
+        <article class="project-item">
+          <div class="w-8 h-8 project_img rounded-[0px_0px_2px_2px]"></div>
+          <div class="flex project-item__content">
+            <div class="flex flex-col mr-2">
+              <span class="project-item__content__title">{{
+                site.title
+              }}</span>
+              <span class="project-item__content__date">{{
+                site.date | date
+              }}</span>
+            </div>
+            <div class="flex flex-col h-full">
+              <div
+                [style.backgroundColor]="
+                  selectedProject === site && site.status === 'Pending'
+                    ? '#fff'
+                    : statusBgColor[site.status]
+                "
+                [ngClass]="{
+                  'text-purple':
+                    selectedProject === site && site.status === 'Pending'
+                }"
+                class="rounded-2xl p-[2px_8px_4px] text-white text-center secondary-text"
+              >
+                {{ site.status }}
+              </div>
+            </div>
+            <div class="flex items-center justify-end flex-grow pr-[.5625rem]">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-angle-right"
+                class="p-button-rounded p-button-secondary"
+                (click)="gotoMissions.emit(site)"
+              ></button>
+            </div>
+          </div>
+        </article>
+        <p-divider styleClass="divider"></p-divider>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <div class="form-control">
+          <button
+            pButton
+            pRipple
+            label="Ajouter un nouveau site"
+            type="submit"
+            class="p-button-secondary primary-text"
+            (click)="addProject()"
+          ></button>
+        </div>
+      </ng-template>
+    </p-listbox>
+  </div>
+</section>

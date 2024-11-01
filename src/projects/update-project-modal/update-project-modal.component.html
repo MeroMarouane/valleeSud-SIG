@@ -1,0 +1,175 @@
+<div class="flex">
+  <div class="w-[29.875rem] p-6" [formGroup]="updateProjectForm">
+    <h1>Modifier le site</h1>
+
+    <div class="form-control">
+      <input formControlName="name" pInputText placeholder="Intitulé" />
+    </div>
+    <div class="form-control">
+      <input
+        formControlName="projectNumber"
+        pInputText
+        type="number"
+        placeholder="Numéro de Site"
+      />
+    </div>
+    <div class="form-control">
+      <p-calendar
+        formControlName="created_at"
+        placeholder="Date"
+        dateFormat="dd/mm/yy"
+      ></p-calendar>
+    </div>
+    <!-- <div class="form-control">
+      <p-dropdown
+        placeholder="Client"
+        formControlName="client"
+        [options]="(clients$ | async) || []"
+        optionValue="id"
+        optionLabel="name"
+      ></p-dropdown>
+    </div> -->
+    <ng-container *ngIf="activateMap === false; else drawForm">
+      <p-fileUpload
+        name="file[]"
+        class="up-btn"
+        chooseIcon="c-icon c-upload-icon"
+        chooseLabel=""
+        url=""
+        accept=".kml,.geojson"
+        [auto]="true"
+        [customUpload]="true"
+        (uploadHandler)="onUploadFile($event)"
+      >
+        <ng-template pTemplate="toolbar">
+          <div class="mt-4 w-fit">
+            <span class="block mb-2 text-[.875rem] leading-4 text-gray"
+              >Téléchargez votre fichier</span
+            >
+            <span class="block text-[.75rem] leading-4 text-purple font-bold"
+              >Formats : KML, GeoJSON</span
+            >
+          </div>
+        </ng-template>
+      </p-fileUpload>
+      <p-divider align="center">
+        <span class="p-tag bg-black-800 rounded-3xl">OR</span>
+      </p-divider>
+      <div class="form-control">
+        <button
+          pButton
+          label="Tracer une forme"
+          class="p-button-accent"
+          (click)="activateMap = true"
+        ></button>
+      </div>
+    </ng-container>
+    <ng-template #drawForm>
+      <div class="w-full rounded-[10px] bg-[#F7F7F7] p-4">
+        <div class="flex items-center">
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-angle-left"
+            class="mr-1 back-btn p-button-rounded p-button-secondary"
+            (click)="activateMap = false"
+          ></button>
+          <span class="font-bold primary-text">Tracer une forme</span>
+        </div>
+        <p class="text-[#828282] primary-text mt-4">
+          Allez sur la carte latérale choisissez votre système de projection et
+          votre ville, puis sélectionnez l'outil stylo pour dessiner votre
+          forme.
+        </p>
+      </div>
+    </ng-template>
+
+    <div class="form-control">
+      <button
+        pButton
+        type="submit"
+        label="Enregister"
+        class="mt-10 p-button-secondary primary-text"
+        (click)="submit()"
+      ></button>
+    </div>
+  </div>
+  <aol-map *ngIf="activateMap" [width]="'31.25rem'">
+    <aol-interaction-default></aol-interaction-default>
+
+    <aol-view [zoom]="6">
+      <aol-coordinate
+        [x]="-114575431300.73878"
+        [y]="3475766.6239057416"
+      ></aol-coordinate>
+      <!--########## CONTROLS ##########-->
+      <aol-control-zoom></aol-control-zoom>
+      <aol-control>
+        <aol-content>
+          <div class="flex justify-around gap-4 px-4">
+            <div class="form-control">
+              <p-dropdown placeholder="Système de projection"></p-dropdown>
+            </div>
+            <div class="form-control">
+              <p-dropdown placeholder="Ville"></p-dropdown>
+            </div>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div
+            class="three-d-btn ol-unselectable ol-control img-btn"
+            [style.border]="drawing ? '1px solid #81461d' : ''"
+          >
+            <button (click)="activateDrawing(vectorSource.instance)">
+              <img src="../../../assets/pen.png" alt="pen button" />
+            </button>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control *ngIf="updateProjectForm.get('file').value !== null">
+        <aol-content>
+          <div class="dsm-btn ol-unselectable ol-control img-btn">
+            <button (click)="deleteFeature(vectorSource.instance)">
+              <img src="../../../assets/delete.png" alt="delete button" />
+            </button>
+          </div>
+        </aol-content>
+      </aol-control>
+    </aol-view>
+    <!--########## MAP LAYERS ##########-->
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Plan.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Terrain.visibility">
+      <aol-source-stamen [stamenLayer]="'terrain'"></aol-source-stamen>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Satellite.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-vector [zIndex]="10" [visible]="true">
+      <aol-source-vector #vectorSource [wrapX]="false">
+        <aol-interaction-draw
+          *ngIf="drawing"
+          [source]="vectorSource.instance"
+          type="Polygon"
+          (drawEnd)="polygonDrawEnd($event)"
+        ></aol-interaction-draw>
+      </aol-source-vector>
+      <aol-style>
+        <aol-style-fill color="rgba(255, 255, 255, 0.2)"></aol-style-fill>
+        <aol-style-stroke color="#ffcc33" [width]="2"></aol-style-stroke>
+        <aol-style-circle [radius]="7">
+          <aol-style-fill color="#ffcc33"></aol-style-fill>
+        </aol-style-circle>
+      </aol-style>
+    </aol-layer-vector>
+  </aol-map>
+</div>
+

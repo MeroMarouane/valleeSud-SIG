@@ -1,0 +1,61 @@
+<article
+  class="w-[15rem] h-[13.5625rem] border-[#ddd] border hover:shadow-[0px_7px_24px_rgba(0,0,0,0.12)] rounded-md"
+>
+  <div
+    class="relative flex flex-col justify-between h-full p-4"
+    (mouseover)="iconColor = '#000'"
+    (mouseout)="iconColor = '#7A7A7A'"
+  >
+    <div class="flex items-center">
+      <img
+        class="block w-8 h-8 mr-2"
+        [src]="group.logo || '../../../../assets/company-logo.svg'"
+        alt=""
+      />
+      <div class="">
+        <span class="block text-[.875rem] leading-[1.0625rem] text-[#2A2E30]"
+          >{{ group.name }}</span
+        >
+        <span class="block text-[.75rem] leading-[.875rem] text-[#7A7A7A]"
+          >Nom de l'entreprise</span
+        >
+      </div>
+    </div>
+    <div class="">
+      <div class="text-[.875rem] leading-[1.0625rem] text-[#7A7A7A]">
+        Clients
+      </div>
+      <div class="flex">
+        <div
+          class="w-6 h-6 rounded-[50%] bg-orange-600 border border-white text-white flex items-center justify-center text-[1rem] shadow-[-3px_2px_3px_rgba(0,0,0,0.12)]"
+          [ngClass]="{ 'ml-[-.3rem]': !first }"
+          *ngFor="let item of [1, 1, 1, 1]; let first = first"
+        >A</div>
+      </div>
+    </div>
+    <div class="">
+      <div class="text-[.875rem] leading-[1.0625rem] text-[#7A7A7A]">
+        Utilisateurs
+      </div>
+      <div class="flex">
+        <div
+          class="w-6 h-6 rounded-[50%] bg-orange-600 border border-white text-white flex items-center justify-center text-[1rem] shadow-[-3px_2px_3px_rgba(0,0,0,0.12)]"
+          [ngClass]="{ 'ml-[-.3rem]': !first }"
+          *ngFor="let item of [1, 1, 1, 1]; let first = first; let index = index"
+        >A</div>
+      </div>
+    </div>
+    <div class="flex justify-end w-full cursor-pointer">
+      <app-icons icon="arrow_right" [color]="iconColor" [routerLink]="['/clients']" [queryParams]="{group: group.id}"></app-icons>
+    </div>
+    <div class="absolute top-0 right-0">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-ellipsis-v"
+        class="p-button-rounded p-button-text p-button-plain"
+      ></button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,12 @@
+
+
+.c-icon {
+    width: 1rem;
+    height: 1rem;
+
+    &.c-upload-icon {
+        width: 1.2756rem;
+        height: 1.6rem;
+        background-image: url('../../assets/upload-icon.svg');
+    }
+}

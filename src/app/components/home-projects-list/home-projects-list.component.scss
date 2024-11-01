@@ -1,0 +1,112 @@
+@import "../../../styles/base/variables";
+@import "../../../styles/base/mixins";
+
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 4px 8px;
+  height: 3.25rem;
+  width: 100%;
+
+  &__icon {
+    width: 0.25rem;
+    height: 1.25rem;
+    background-color: $purple;
+    border-radius: 6px;
+  }
+
+  &__content {
+    width: 100%;
+
+    &__title {
+      @include primary-text;
+    }
+    &__date {
+      @include secondary-text;
+    }
+  }
+}
+.projects-list {
+
+  ::ng-deep .p-listbox {
+    border: none;
+    margin: 0.25rem;
+    .p-listbox-list {
+      &-wrapper {
+        max-height: 31.25rem;
+        overflow-y: auto;
+      }
+      .p-listbox-item {
+        display: block;
+        padding: 0;
+        &:focus {
+          box-shadow: none;
+        }
+        &.p-highlight {
+          background: transparent;
+          .project-item {
+            color: #fff;
+            background-color: $purple;
+            border-radius: 6px;
+            &__icon {
+              background-color: #fff;
+            }
+  
+            &__content {
+              &__title {
+                color: #fff;
+              }
+              &__date {
+                color: $grey-600;
+              }
+            }
+  
+            .p-button.p-button-secondary.p-button-icon-only:not(.p-button-text) {
+              color: $purple;
+              background-color: #fff;
+            }
+          }
+        }
+        .divider.p-divider {
+          margin: 4px 0;
+        }
+      }
+    }
+  }
+
+  ::ng-deep
+    .p-listbox:not(.p-disabled)
+    .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+    background-color: transparent;
+    .project-item {
+      border-radius: 6px;
+      background-color: #e9ecef;
+    }
+  }
+
+  ::ng-deep .p-listbox-footer {
+    padding: 0 0.75rem;
+  }
+}
+
+.form-control {
+  ::ng-deep .p-button-label {
+    font-weight: 400;
+  }
+}
+
+.p-button {
+  &.p-button-secondary {
+    &.p-button-icon-only {
+      &.p-button-rounded {
+        width: 1.125rem;
+        height: 1.125rem;
+        padding: 0;
+        .p-button-icon {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}

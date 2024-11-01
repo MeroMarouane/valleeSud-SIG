@@ -1,0 +1,33 @@
+<section class="flex justify-center w-full h-full pt-8">
+  <form [formGroup]="accountForm" class="max-w-[27.5rem] min-w-[21.25rem]">
+    <div class="mb-10">
+      <h2 class="primary-text">Nom d'utilisateur</h2>
+      <div class="form-control">
+        <input formControlName="userName" pInputText placeholder="Username" />
+      </div>
+    </div>
+    <div class="mb-10">
+      <h2 class="primary-text">Email</h2>
+      <div class="form-control">
+        <input formControlName="email" type="email" pInputText placeholder="Email" />
+      </div>
+    </div>
+    <div class="mb-10">
+      <h2 class="primary-text">Mot de passe</h2>
+      <div class="form-control">
+        <input formControlName="password" type="password" pInputText placeholder="Mot de passe actuel" />
+      </div>
+      <div class="form-control">
+        <input formControlName="confirmPassword" type="password" pInputText placeholder="Nouveau mot de passe" />
+      </div>
+    </div>
+    <div class="form-control">
+      <button
+        pButton
+        type="submit"
+        label="Appliquer"
+        class="secondary-text p-button-secondary"
+      ></button>
+    </div>
+  </form>
+</section>

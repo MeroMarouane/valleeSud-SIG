@@ -1,0 +1,10 @@
+<app-home-projects-list
+  *ngIf="!selectedSite"
+  (gotoMissions)="getSiteMissions($event)"
+></app-home-projects-list>
+<app-home-missions-list
+  *ngIf="selectedSite"
+  (onBackToSites)="getSites()"
+  [site]="selectedSite"
+  (change)="onMissionChanged($event)"
+></app-home-missions-list>

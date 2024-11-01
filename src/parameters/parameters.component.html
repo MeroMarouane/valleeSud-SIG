@@ -1,0 +1,33 @@
+<div class="rounded-[6px] shadow-[0px_4px_10px_rgba(0,0,0,0.15)] w-full bg-white">
+  <div
+    class="w-full h-12 flex justify-center items-center text-start rounde-[6px] bg-[#f7f7f7] px-4 secondary-text gap-8"
+  >
+    <button
+      class="px-4 py-1"
+      [routerLink]="['details-compte']"
+      [routerLinkActive]="'params-active-link'"
+    >
+      Détails du compte
+    </button>
+    <button
+      class="px-4 py-1"
+      [routerLink]="['abonnement']"
+      [routerLinkActive]="'params-active-link'"
+      *ngIf="(isAdmin$ | async) == false"
+    >
+      Abonnement
+    </button>
+    <button
+      class="px-4 py-1"
+      [routerLink]="['roles']"
+      [routerLinkActive]="'params-active-link'"
+      *ngIf="isAdmin$ | async"
+    >
+      Gestion des Roles
+    </button>
+  </div>
+
+  <div class="bg-white">
+    <router-outlet></router-outlet>
+  </div>
+</div>

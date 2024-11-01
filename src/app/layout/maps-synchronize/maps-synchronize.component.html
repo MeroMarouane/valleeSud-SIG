@@ -1,0 +1,256 @@
+<div class="w-[90%] absolute z-10 top-4 right-1/2 left-1/2 translate-x-[-50%]">
+  <app-header class=""></app-header>
+
+  <div class="relative" *ngIf="site$ | async as site">
+    <app-multiselect-missions-list
+      class="absolute top-[1.5rem] left-0"
+      [site]="site"
+      (change)="missionsChange($event)"
+    ></app-multiselect-missions-list>
+  </div>
+</div>
+<main class="grid h-full grid-cols-2 gap-[.875rem]">
+  <!--Map A-->
+  <aol-map
+    #mapA
+    id="sync_A"
+    width="100%"
+    height="100%"
+    class="block shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+  >
+    <aol-interaction-default></aol-interaction-default>
+    <aol-interaction-select
+      [condition]="clickCondition"
+    ></aol-interaction-select>
+    <aol-view [zoom]="6">
+      <aol-coordinate
+        [x]="-114575431300.73878"
+        [y]="3475766.6239057416"
+      ></aol-coordinate>
+      <aol-control-zoom></aol-control-zoom>
+      <aol-control>
+        <aol-content>
+          <div class="search-map-btn ol-control">
+            <button><i class="pi pi-search"></i></button>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div
+            class="flex absolute items-center justify-center w-6 h-6 text-white bg-purple bottom-6 right-4 hover:bg-purple rounded-[50%]"
+          >
+            A
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control *ngIf="!!(siteFeature$ | async) === true">
+        <aol-content>
+          <div class="dsm-btn ol-unselectable ol-control img-btn">
+            <app-mission-files-switch
+              [map]="mapA.instance"
+              [siteFeature]="siteFeature$ | async"
+              [mission]="missions[0]"
+            ></app-mission-files-switch>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div class="ol-control ol-unselectable layer-switcher-btn">
+            <button
+              pButton
+              class="p-button-secondary"
+              [ngClass]="{ 'p-button--black': menuAOpen }"
+              icon="pi pi-ellipsis-v"
+              (click)="menuAOpen = true"
+              [matMenuTriggerFor]="layersMenu"
+            ></button>
+            <mat-menu
+              #layersMenu
+              xPosition="before"
+              yPosition="above"
+              (closed)="menuAOpen = false"
+            >
+              <div
+                class="p-[14px_8px_6px] rounded-md bg-[#2A2E30] flex gap-[1.125rem] text-white secondary-text layers"
+              >
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Terrain', mapALayers)"
+                >
+                  <img
+                    src="../../../assets/earth-layer.png"
+                    alt="layer image"
+                  /><span>Terrain</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Satellite', mapALayers)"
+                >
+                  <img
+                    src="../../../assets/satellite-layer.png"
+                    alt="layer image"
+                  /><span>Satelite</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Plan', mapALayers)"
+                >
+                  <img
+                    src="../../../assets/streets-layer.png"
+                    alt="layer image"
+                  /><span>Plan</span>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+        </aol-content>
+      </aol-control>
+    </aol-view>
+    <!--########## MAP LAYERS ##########-->
+    <aol-layer-tile [zIndex]="1" [visible]="mapALayers.Plan.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapALayers.Terrain.visibility">
+      <aol-source-stamen [stamenLayer]="'terrain'"></aol-source-stamen>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapALayers.Satellite.visibility">
+      <aol-source-xyz
+        url="http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <!-- SITE Vector Layer-->
+    <aol-layer-vector #mapA_polygonsLayer [zIndex]="10">
+      <aol-style>
+        <aol-style-stroke [width]="1" color="#501798"></aol-style-stroke>
+        <aol-style-fill color="rgba(80, 23, 152, 0.1)"></aol-style-fill>
+      </aol-style>
+      <aol-source-vector [wrapX]="false"> </aol-source-vector>
+    </aol-layer-vector>
+  </aol-map>
+  <!--Map B-->
+  <aol-map
+    #mapB
+    id="sync_B"
+    width="100%"
+    height="100%"
+    class="block shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+  >
+    <aol-interaction-default></aol-interaction-default>
+    <aol-interaction-select
+      [condition]="clickCondition"
+    ></aol-interaction-select>
+    <aol-view [zoom]="6">
+      <aol-coordinate
+        [x]="-114575431300.73878"
+        [y]="3475766.6239057416"
+      ></aol-coordinate>
+      <!--############## CONTROLS ############-->
+      <aol-control-zoom></aol-control-zoom>
+      <aol-control>
+        <aol-content>
+          <div class="search-map-btn ol-unselectable ol-control">
+            <button><i class="pi pi-search"></i></button>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div
+            class="flex absolute items-center justify-center w-6 h-6 text-white bg-black bottom-6 left-4 hover:bg-black rounded-[50%]"
+          >
+            B
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control *ngIf="!!(siteFeature$ | async) === true">
+        <aol-content>
+          <div class="dsm-btn ol-unselectable ol-control img-btn">
+            <app-mission-files-switch
+              [map]="mapB.instance"
+              [siteFeature]="siteFeature$ | async"
+              [mission]="missions[1]"
+            ></app-mission-files-switch>
+          </div>
+        </aol-content>
+      </aol-control>
+      <aol-control>
+        <aol-content>
+          <div class="ol-control ol-unselectable layer-switcher-btn">
+            <button
+              pButton
+              class="p-button-secondary"
+              [ngClass]="{ 'p-button--black': menuBOpen }"
+              icon="pi pi-ellipsis-v"
+              (click)="menuBOpen = true"
+              [matMenuTriggerFor]="layersMenuB"
+            ></button>
+            <mat-menu
+              #layersMenuB
+              xPosition="before"
+              yPosition="above"
+              (closed)="menuBOpen = false"
+            >
+              <div
+                class="p-[14px_8px_6px] rounded-md bg-[#2A2E30] flex gap-[1.125rem] text-white secondary-text layers"
+              >
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Terrain', mapBLayers)"
+                >
+                  <img
+                    src="../../../assets/earth-layer.png"
+                    alt="layer image"
+                  /><span>Terrain</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Satellite', mapBLayers)"
+                >
+                  <img
+                    src="../../../assets/satellite-layer.png"
+                    alt="layer image"
+                  /><span>Satelite</span>
+                </div>
+                <div
+                  class="flex flex-col gap-1 layer"
+                  (click)="setLayer('Plan', mapBLayers)"
+                >
+                  <img
+                    src="../../../assets/streets-layer.png"
+                    alt="layer image"
+                  /><span>Plan</span>
+                </div>
+              </div>
+            </mat-menu>
+          </div>
+        </aol-content>
+      </aol-control>
+    </aol-view>
+    <!--########## MAP LAYERS ##########-->
+    <aol-layer-tile [zIndex]="1" [visible]="mapBLayers.Plan.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapBLayers.Terrain.visibility">
+      <aol-source-stamen [stamenLayer]="'terrain'"></aol-source-stamen>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapBLayers.Satellite.visibility">
+      <aol-source-xyz
+        url="http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <!-- SITE Vector Layer-->
+    <aol-layer-vector #mapB_polygonsLayer [zIndex]="10">
+      <aol-style>
+        <aol-style-stroke [width]="1" color="#501798"></aol-style-stroke>
+        <aol-style-fill color="rgba(80, 23, 152, 0.1)"></aol-style-fill>
+      </aol-style>
+      <aol-source-vector [wrapX]="false"> </aol-source-vector>
+    </aol-layer-vector>
+  </aol-map>
+</main>

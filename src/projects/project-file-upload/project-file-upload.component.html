@@ -1,0 +1,16 @@
+<div class="form-control">
+  <button
+    pButton
+    class="p-button-secondary"
+    [ngStyle]="btnStyles"
+    label="Telecharger un fichier"
+    icon="pi pi-plus"
+    iconPos="right"
+    [matMenuTriggerFor]="menu"
+  ></button>
+  <mat-menu #menu xPosition="before" yPosition="above">
+    <button class="mission-file-upload-btn--border-b mission-file-upload-btn" (click)="openFileUpload('points-cloud')" mat-menu-item>Nuage de points</button>
+    <button class="mission-file-upload-btn--border-b mission-file-upload-btn" (click)="openFileUpload('orthomosaic')" mat-menu-item>Orthomosaïque</button>
+    <button class="mission-file-upload-btn" (click)="openFileUpload('3d-mech')" mat-menu-item>3D-Mesh</button>
+  </mat-menu>
+</div>

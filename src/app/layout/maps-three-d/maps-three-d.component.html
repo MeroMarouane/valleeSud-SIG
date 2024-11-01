@@ -1,0 +1,213 @@
+<div class="relative h-full main-container">
+  <div
+    class="w-[90%] absolute z-10 top-4 right-1/2 left-1/2 translate-x-[-50%]"
+  >
+    <app-header class=""></app-header>
+  </div>
+  <main class="h-full">
+    <div class="relative w-full h-full">
+      <div id="potree_render_area" #potreeRenderArea></div>
+      <div id="potree_sidebar_container"></div>
+      <!-- ZOOM BUTTONS -->
+      <div class="absolute z-10 top-[6.25rem] right-[5%]">
+        <button
+          pButton
+          class="p-button-secondary"
+          icon="pi pi-plus"
+          (click)="zoom(0.1)"
+        ></button>
+      </div>
+      <div class="absolute z-10 top-[8.35rem] right-[5%]">
+        <button
+          pButton
+          class="p-button-secondary"
+          icon="pi pi-minus"
+          (click)="zoom(-0.1)"
+        ></button>
+      </div>
+      <!-- 2D BUTTON -->
+      <div class="absolute z-10 top-[12rem] right-[5%] img-btn">
+        <button>
+          <img src="../../../assets/two-d-btn.png" alt="2d button" />
+        </button>
+      </div>
+      <!-- ATTRIBUTES SWITCHER -->
+      <div class="absolute z-10 bottom-6 right-[5%]">
+        <button
+          pButton
+          class="attributes-switch p-button-secondary"
+          icon="pi pi-ellipsis-v"
+          (click)="menuOpen = true"
+          [matMenuTriggerFor]="menu"
+        ></button>
+        <mat-menu
+          #menu
+          xPosition="before"
+          yPosition="above"
+          (closed)="menuOpen = false"
+        >
+          <div
+            class="p-[14px_8px_6px] rounded-md flex gap-[1.125rem] secondary-text layers"
+          >
+            <div
+              class="flex flex-col gap-1 layer"
+              (click)="setAttribute('RGB')"
+            >
+              <img
+                src="../../../assets/rgba-attribute.png"
+                alt="layer image"
+              /><span>RGB</span>
+            </div>
+            <div
+              class="flex flex-col gap-1 layer"
+              (click)="setAttribute('Satellite')"
+            >
+              <img
+                src="../../../assets/satellite-layer.png"
+                alt="layer image"
+              /><span>Satelite</span>
+            </div>
+          </div>
+        </mat-menu>
+      </div>
+      <!-- POINT BUDGET SLIDER -->
+      <div
+        class="absolute w-72 z-10 bottom-6 translate-x-[-50%] right-1/2 left-1/2"
+      >
+        <div class="mb-3 text-center text-yellow">
+          {{ (pointBudget / 1000_000).toFixed(1) + "M Point" }}
+        </div>
+        <p-slider
+          [(ngModel)]="pointBudget"
+          [step]="1000"
+          [min]="100_000"
+          [max]="2_000_000"
+          (onChange)="viewer.setPointBudget($event.value)"
+        ></p-slider>
+      </div>
+      <!-- MEASUREMENT TOOLS -->
+      <div class="absolute z-10 top-[14.4rem] right-[5%] cursor-pointer">
+        <div
+          (click)="menuMesurmentsOpen = true"
+          [matMenuTriggerFor]="menuMesurments"
+        >
+          <img
+            src="../../../assets/measurment-img.png"
+            alt="Measurements icon"
+          />
+        </div>
+        <mat-menu
+          #menuMesurments
+          xPosition="after"
+          (closed)="menuMesurmentsOpen = false"
+        >
+          <div class="rounded-md">
+            <div
+              id="measureTools"
+              class="flex gap-[1.125rem] flex-wrap w-[12.5rem] p-2"
+              #measureTools
+            ></div>
+          </div>
+        </mat-menu>
+      </div>
+      <!-- CLIPPING TOOLS -->
+      <div
+        class="absolute z-10 top-[16.8rem] right-[5%] cursor-pointer bg-white rounded p-1 w-8"
+      >
+        <div
+          (click)="menuClippingToolsOpen = true"
+          [matMenuTriggerFor]="menuClippingTools"
+        >
+          <img
+            src="../../../assets/cut-svgrepo-com.svg"
+            alt="Measurements icon"
+          />
+        </div>
+        <mat-menu
+          #menuClippingTools
+          xPosition="after"
+          (closed)="menuClippingToolsOpen = false"
+        >
+          <div class="p-1 rounded-md">
+            <div
+              id="clippingTools"
+              class="flex gap-[1.125rem] flex-wrap w-[12.5rem] p-2"
+              #clippingTools
+            ></div>
+            <hr />
+            <h3 class="my-2 ml-2 font-bold">Tâche de découpe</h3>
+            <p-selectButton
+              [options]="[
+                { label: 'Aucun(e)', value: 'NONE' },
+                { label: 'Surligner', value: 'HIGHLIGHT' },
+                { label: 'À l\'intérieur', value: 'SHOW_INSIDE' },
+                { label: 'À l\'extérieur', value: 'SHOW_OUTSIDE' }
+              ]"
+              (onChange)="setClipMethod($event.value)"
+              [(ngModel)]="clipMethod"
+              optionLabel="label"
+              optionValue="value"
+            ></p-selectButton>
+          </div>
+        </mat-menu>
+      </div>
+      <!-- MISSION INFOS -->
+      <div
+        *ngIf="mission$ | async as mission"
+        class="flex items-center py-1 justify-start flex-grow-0 flex-shrink-0 gap-3 px-4 absolute z-10 left-[5%] top-[6.25rem] w-60 2xl:w-80 h-11 bg-purple rounded-md"
+      >
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-angle-left"
+          class="p-button-rounded p-button-secondary back-btn"
+          (click)="navigateBack()"
+        ></button>
+        <div class="text-white">
+          <span class="block primary-text">{{ mission.site.title }}</span>
+          <span class="secondary-text" style="color: #d6d2d2;">{{ mission.title }}</span>
+        </div>
+      </div>
+      <!-- JS-TREE -->
+      <div
+        class="absolute z-10 left-[5%] top-[9.55rem] w-60 2xl:w-80 bg-white rounded-md overflow-hidden text-sm 2xl:text-base"
+      >
+        <div
+          class="h-12 pl-3 bg-[#F7F7F7] border-b-[1px_solid_#DDDDDD] flex flex-col justify-center mb-4"
+        >
+          <h2>Fichiers</h2>
+        </div>
+        <div class="ml-4 max-h-[15.8125rem] 2xl:max-h-[24rem] overflow-x-auto">
+          <h3 id="menu_scene"><span data-i18n="tb.scene_opt"></span></h3>
+          <div id="scene_export"></div>
+          <div><span>Objects</span></div>
+          <div id="scene_objects"></div>
+          <div id="scene_object_properties"></div>
+        </div>
+
+        <div class="flex justify-center w-full px-1 mt-4 mb-4">
+          <a class="w-full" #exportElement href="#" download="measure.json">
+            <button
+              pButton
+              (click)="downloadJson(exportElement)"
+              class="w-full py-2 p-button-secondary primary-text text-sm 2xl:text-base h-[40px]"
+              label="Export Json"
+            ></button>
+          </a>
+        </div>
+      </div>
+      <!-- GLOBE VIEW -->
+      <div
+        class="absolute z-10 top-[20rem] right-[4.7%] cursor-pointer"
+        (click)="globView()"
+      >
+        <img
+          src="../../../assets/earth-globe-global.svg"
+          class="w-10 h-10"
+          alt="globe icon"
+        />
+      </div>
+    </div>
+  </main>
+</div>

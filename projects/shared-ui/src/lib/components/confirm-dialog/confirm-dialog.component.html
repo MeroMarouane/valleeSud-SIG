@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+    {{title}}
+</h1>
+
+<div class="mb-4">
+    <p>{{message}}</p>
+</div>
+
+<div class="flex justify-between" mat-dialog-actions>
+    <button pButton class="p-button-raised p-button-secondary p-button-text" (click)="onDismiss()">Non</button>
+    <button pButton class="p-button-raised p-button-danger" (click)="onConfirm()">Oui</button>
+</div>

@@ -1,0 +1,31 @@
+<div class="mt-16" [formGroup]="registerForm">
+    <h1 class="text-center text-gray-500 uppercase">Welcome to Metagis</h1>
+    <app-google-btn class="block w-full mt-[7.3125rem]" text="S'enregister avec Google"></app-google-btn>
+    <div class="flex justify-center mt-16 mb-2">
+      <span class="font-semibold">Création de compte</span>
+    </div>
+    <div class="form-control">
+      <input formControlName="name" pInputText placeholder="Nom d'utilisateur" />
+    </div>
+    <div class="form-control">
+      <input formControlName="email" type="email" pInputText placeholder="Addresse mail" />
+    </div>
+    <div class="form-control">
+      <input formControlName="password" type="password" pInputText placeholder="Mot de passe" />
+    </div>
+    <div class="form-control">
+      <input formControlName="confirm_password" type="password" pInputText placeholder="Confirmer le mot de passe" />
+    </div>
+    <div class="form-control">
+      <button
+        pButton
+        type="submit"
+        label="Créer"
+        class="uppercase p-button-secondary"
+        (click)="register()"
+      ></button>
+    </div>
+    <div class="mt-4 text-center">
+      <span class="secondary-text">Tu a déjà un compte ? <a class="text-black primary-text" [routerLink]="['/compte','login']">Login</a></span>
+    </div>
+  </div>

@@ -1,0 +1,10 @@
+
+.project_img {
+    background-image: url('../../assets/project-img.svg');
+    filter: drop-shadow(-2px 2px 0px #7450E9);
+}
+
+.link-disabled {
+    pointer-events: none;
+    cursor: default;
+ }

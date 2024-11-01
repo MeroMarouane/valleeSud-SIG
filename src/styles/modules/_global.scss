@@ -1,0 +1,7 @@
+@import '../base/variables';
+.project_img {
+    background-image: url('../../assets/project-img.svg');
+    filter: drop-shadow(-2px 2px 0px $purple);
+}
+
+

@@ -1,0 +1,12 @@
+@import '../../styles/base/variables';
+
+:host {
+  ::ng-deep .p-datatable {
+    overflow-x: auto;
+    .p-datatable-thead > tr > th {
+
+      font-weight: 500;
+      color: $grey-500;
+    }
+  }
+}

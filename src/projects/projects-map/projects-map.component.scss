@@ -1,0 +1,42 @@
+@import "../../styles/base/variables";
+
+$right-pos: 1rem;
+
+:host {
+  .p-button {
+    width: auto;
+    padding: 0.1875rem 0.4375rem;
+    background-color: #fff !important;
+    color: $black;
+    &.p-button-secondary {
+      &:hover {
+        color: $black;
+      }
+    }
+    &--black {
+      background-color: $black !important;
+      color: #fff;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  ::ng-deep .p-button-icon-only .p-button-label {
+    display: none;
+  }
+
+}
+
+.layers {
+  text-align: center;
+  font-weight: 500;
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .layer {
+    cursor: pointer;
+  }
+}
+

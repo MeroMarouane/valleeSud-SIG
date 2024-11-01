@@ -1,0 +1,67 @@
+<section
+  class="w-[20rem] rounded-md shadow-[0px_4px_10px_rgba(0,0,0,0.15)] bg-white overflow-hidden max-h-[75vh]"
+>
+  <section
+    class="bg-[#F7F7F7] h-12 border-b border-solid border-[#DDD] flex gap-[.375rem] items-center p-4"
+  >
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-angle-left"
+      class="back-btn p-button-rounded p-button-secondary"
+      [routerLink]="['/sites', site.id, 'missions']"
+    ></button>
+    <h1 class="font-bold text-[1rem] leading-5">{{ site.title }}</h1>
+  </section>
+  <div class="p-[0_.75rem_.75rem_.75rem]">
+    <section class="missions-list">
+      <p-listbox
+        [options]="$any(missions$ | async)"
+        optionLabel="name"
+        [(ngModel)]="selectedMissions"
+        (ngModelChange)="missionChanged($event)"
+        [multiple]="true"
+        [metaKeySelection]="false"
+      >
+        <ng-template let-mission pTemplate="item">
+          <article
+            class="mission-item flex items-center justify-between p-[.25rem_.5rem] h-[2.75rem]"
+            [ngClass]="{
+              'bg-item-purple': selectedMissions.at(0) === mission,
+              'bg-item-black': selectedMissions.at(1) === mission
+            }"
+          >
+            <div class="flex items-center gap-3">
+              <div class="mission-item__icon"></div>
+              <div class="h-full mission-item__content">
+                <span class="mission-item__content__title">{{
+                  mission.title
+                }}</span>
+                <span class="mission-item__content__date">{{
+                  mission.date | date : "dd/MM/yyyy"
+                }}</span>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                selectedMissions?.length && selectedMissions.at(0) === mission
+              "
+              class="w-6 h-6 rounded-[50%] bg-white flex justify-center items-center text-purple"
+            >
+              A
+            </div>
+            <div
+              *ngIf="
+                selectedMissions?.length && selectedMissions.at(1) === mission
+              "
+              class="w-6 h-6 rounded-[50%] bg-white flex justify-center items-center text-black"
+            >
+              B
+            </div>
+          </article>
+        </ng-template>
+      </p-listbox>
+    </section>
+  </div>
+</section>

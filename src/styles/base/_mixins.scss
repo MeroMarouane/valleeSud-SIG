@@ -1,0 +1,14 @@
+@import "./variables";
+
+@mixin primary-text {
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: $black;
+}
+@mixin secondary-text {
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  color: $grey;
+}
+
+

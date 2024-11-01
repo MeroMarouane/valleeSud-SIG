@@ -1,0 +1,90 @@
+<section
+  class="w-[20rem] rounded-md shadow-[0px_4px_10px_rgba(0,0,0,0.15)] bg-white overflow-hidden max-h-[75vh]"
+>
+  <section
+    class="bg-[#F7F7F7] h-12 border-b border-solid border-[#DDD] flex gap-[.375rem] items-center p-4"
+  >
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-angle-left"
+      class="back-btn p-button-rounded p-button-secondary"
+      (click)="backToProjects()"
+    ></button>
+    <h1 class="font-bold text-[1rem] leading-5">{{ site.title }}</h1>
+  </section>
+  <div class="p-[0_.75rem_.75rem_.75rem]">
+    <section class="mb-3 missions-list">
+      <p-listbox
+        [options]="$any(missions$ | async)"
+        optionLabel="name"
+        [(ngModel)]="selectedMission"
+        (ngModelChange)="missionChanged($event)"
+      >
+        <ng-template let-mission pTemplate="item">
+          <article class="mission-item">
+            <div class="mission-item__icon"></div>
+            <div class="mission-item__content">
+              <span class="mission-item__content__title">{{
+                mission.title
+              }}</span>
+              <span class="mission-item__content__date">{{
+                mission.date | date : "dd/MM/yyyy"
+              }}</span>
+            </div>
+            <div class="flex flex-col justify-center">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-angle-right"
+                class="p-button-rounded p-button-secondary"
+                (click)="missionClick(mission)"
+              ></button>
+            </div>
+          </article>
+        </ng-template>
+        <ng-template *ngIf="showAddButton" pTemplate="footer">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Ajouter une mission"
+            icon="pi pi-plus"
+            iconPos="right"
+            class="p-button-outlined add-mission"
+            (click)="addMission()"
+          ></button>
+        </ng-template>
+      </p-listbox>
+    </section>
+    <section *ngIf="showClientInfos" class="bg-img-white rounded-md bg-[#2A2E30] w-full p-4 text-white">
+      <section class="flex items-center gap-3">
+        <img
+          class="h-[2.5rem] w-[2.5rem] border-black-800 border border-solid shadow-[-2px_2px_0px_#FFFFFF]"
+          src="../../../assets/company-logo.svg"
+          alt="client logo"
+        />
+        <div class="flex flex-col justify-center">
+          <span class="primary-text">Nom de Client</span>
+          <span class="text-gray-600 secondary-text">nom_utilisateur@domain.com</span>
+        </div>
+      </section>
+      <section class="p-1 mt-5 font-medium secondary-text">
+        <div class="bg-white rounded-[20px] flex justify-between pl-4 pr-3 text-black h-8 items-center">
+          <div class="">Groupe ADW</div>
+          <div class="flex items-center gap-1">
+            <span>3</span>
+            <div class="rounded-[50%] bg-[#E7E7E7] h-4 w-4 flex justify-center items-center">
+              <i class="pi pi-user" style="font-size: 9px;"></i>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end w-full mt-5">
+          <button class="bg-white text-black-800 rounded-[20px] py-1 px-[.625rem]" [routerLink]="['projets', site.id, 'missions']">Details</button>
+        </div>
+      </section>
+    </section>
+  </div>
+</section>

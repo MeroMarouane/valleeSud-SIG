@@ -1,0 +1,35 @@
+.desc {
+  @apply text-[#4B5262] text-base leading-[26px];
+}
+
+.desc-active {
+  @apply text-[#DBEAFE];
+}
+
+.plan-border {
+  @apply border border-solid border-[#E5EAF1];
+}
+
+.plan-active-bg {
+  @apply bg-purple;
+}
+
+.plan-active-color {
+  @apply text-white;
+}
+
+.plan-btn-color {
+  @apply text-white;
+}
+
+.plan-btn-active-color {
+  @apply text-purple;
+}
+
+.plan-btn-active-bg {
+  @apply bg-white;
+}
+
+.plan-btn-bg {
+  @apply bg-purple;
+}

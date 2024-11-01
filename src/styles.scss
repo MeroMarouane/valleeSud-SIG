@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #fafafa;
+}
+
+@import "./styles/base/variables";
+@import "./styles/modules/primeng";
+@import "./styles/modules/material";
+@import "./styles/modules/form-controls";
+@import "./styles/modules/icons";
+@import "./styles/modules/global";
+@import "./styles/modules/ol";
+@import "./assets/potree/build/potree/potree.css";
+
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+body {
+  margin: 0;
+  font-family: "Lato", Roboto, "Helvetica Neue", sans-serif;
+  color: #1a1a1a;
+  overflow-y: auto;
+}
+
+@layer components {
+  .primary-text {
+    @apply text-[.875rem] leading-[1.0625rem];
+  }
+  .secondary-text {
+    @apply text-[.75rem] leading-[.875rem] text-gray;
+  }
+}

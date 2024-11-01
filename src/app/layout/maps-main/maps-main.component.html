@@ -1,0 +1,30 @@
+<div class="relative h-full main-container">
+  <div
+    class="w-[90%] absolute z-10 top-4 right-1/2 left-1/2 translate-x-[-50%]"
+  >
+    <app-header class=""></app-header>
+
+    <div class="relative">
+      <app-home-projects
+        class="absolute top-[1.5rem] left-0"
+        (onSiteSelected)="siteSelected($event)"
+      ></app-home-projects>
+    </div>
+  </div>
+  <main class="h-full">
+    <app-projects-map *ngIf="showSitesMap"></app-projects-map>
+    <app-missions-map
+      [projectGeometry]="siteFeature$ | async"
+      *ngIf="!showSitesMap && !!(siteFeature$ | async)"
+      [currentRoute]="currentRoute"
+    ></app-missions-map>
+  </main>
+  <div class="absolute bottom-6 right-[5%]">
+    <app-project-file-upload
+      [btnStyles]="{ width: '17.55rem' }"
+    ></app-project-file-upload>
+  </div>
+  <div class="search-map-btn ol-unselectable ol-control">
+    <button><i class="pi pi-search"></i></button>
+  </div>
+</div>

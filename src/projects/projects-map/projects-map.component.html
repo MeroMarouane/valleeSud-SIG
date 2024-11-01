@@ -1,0 +1,110 @@
+<section class="relative w-full h-full">
+  <!-- HOME MAP -->
+  <aol-map [id]="mapId" width="100%" height="100%" (olClick)="mapClick($event)">
+    <aol-interaction-default></aol-interaction-default>
+
+    <aol-view [zoom]="mapZoom" (changeResolution)="onChangeResolution()">
+      <aol-coordinate
+        [x]="mapCenter[0]"
+        [y]="mapCenter[1]"
+      ></aol-coordinate>
+      <!--########## CONTROLS ##########-->
+      <aol-control-zoom></aol-control-zoom>
+      <aol-control>
+        <aol-content>
+          <div class="w-8 map-reset-btn ol-unselectable ol-control img-btn" style="border-radius: 50%;">
+            <button (click)="resetView()">
+              <img src="../../../assets/earth-globe-global.svg" alt="reset map view button" />
+            </button>
+          </div>
+        </aol-content>
+      </aol-control>
+    </aol-view>
+    <!--########## MAP LAYERS ##########-->
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Plan.visibility">
+      <aol-source-xyz
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Terrain.visibility">
+      <aol-source-stamen [stamenLayer]="'terrain'"></aol-source-stamen>
+    </aol-layer-tile>
+    <aol-layer-tile [zIndex]="1" [visible]="mapLayers.Satellite.visibility">
+      <aol-source-xyz
+        url="http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+      ></aol-source-xyz>
+    </aol-layer-tile>
+    <aol-layer-vector
+      #clustersLayer
+      [zIndex]="10"
+      [visible]="true"
+      [style]="clusterStyle"
+    >
+      <aol-source-cluster
+        #clusterSource
+        [distance]="40"
+        [wrapX]="false"
+        [geometryFunction]="geometryFunction"
+      >
+        <aol-source-vector
+          [wrapX]="false"
+          #vectorSource
+        >
+        </aol-source-vector>
+      </aol-source-cluster>
+    </aol-layer-vector>
+    <!-- POLYGONS LAYER -->
+    <aol-layer-vector
+      #polygonsLayer
+      [zIndex]="10"
+      [visible]="false"
+      [style]="clusterStyle"
+    >
+      <aol-style>
+        <aol-style-stroke [width]="1" color="#501798"></aol-style-stroke>
+        <aol-style-fill color="rgba(80, 23, 152, 0.1)"></aol-style-fill>
+      </aol-style>
+      <aol-source-vector
+        [wrapX]="false"
+      >
+      </aol-source-vector>
+    </aol-layer-vector>
+  </aol-map>
+  <div class="ol-control ol-unselectable layer-switcher-btn">
+    <button
+      pButton
+      class="p-button-secondary"
+      [ngClass]="{ 'p-button--black': menuOpen }"
+      icon="pi pi-ellipsis-v"
+      (click)="menuOpen = true"
+      [matMenuTriggerFor]="menu"
+    ></button>
+    <mat-menu
+      #menu
+      xPosition="before"
+      yPosition="above"
+      (closed)="menuOpen = false"
+    >
+      <div
+        class="p-[14px_8px_6px] rounded-md bg-[#2A2E30] flex gap-[1.125rem] text-white secondary-text layers"
+      >
+        <div class="flex flex-col gap-1 layer" (click)="setLayer('Terrain')">
+          <img src="../../../assets/earth-layer.png" alt="layer image" /><span
+            >Terrain</span
+          >
+        </div>
+        <div class="flex flex-col gap-1 layer" (click)="setLayer('Satellite')">
+          <img
+            src="../../../assets/satellite-layer.png"
+            alt="layer image"
+          /><span>Satelite</span>
+        </div>
+        <div class="flex flex-col gap-1 layer" (click)="setLayer('Plan')">
+          <img src="../../../assets/streets-layer.png" alt="layer image" /><span
+            >Plan</span
+          >
+        </div>
+      </div>
+    </mat-menu>
+  </div>
+</section>

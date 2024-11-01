@@ -1,0 +1,95 @@
+@import "../../../styles/base/variables";
+
+.mission-item {
+
+
+  &__icon {
+    width: 0.25rem;
+    height: 2.25rem;
+    background-color: $purple;
+    border-radius: 6px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    &__title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: $black;
+    }
+    &__date {
+      font-size: 12px;
+      line-height: 14px;
+      text-align: right;
+      color: $grey;
+    }
+  }
+}
+
+.missions-list {
+
+  ::ng-deep .p-listbox {
+    border: none;
+    .p-listbox-list {
+      &-wrapper {
+        max-height: 31.25rem;
+        overflow-y: auto;
+      }
+      .p-listbox-item {
+        display: block;
+        padding: 0;
+        margin: .125rem 0;
+        &:focus {
+          box-shadow: none;
+        }
+        &.p-highlight {
+          color: #fff;
+          background-color: transparent;
+          border-radius: 6px;
+
+          .mission-item {
+            &__icon {
+              background-color: #fff;
+            }
+
+            &__content {
+              &__title {
+                color: #fff;
+              }
+              &__date {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.second {
+      ::ng-deep .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
+        background-color: $black;
+      }
+    }
+  }
+
+  ::ng-deep
+    .p-listbox:not(.p-disabled)
+    .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+    border-radius: 6px;
+  }
+}
+
+.bg-item-purple {
+  background-color: $purple;
+}
+.bg-item-black {
+  background-color: $black-800;
+}
+
+.bg-img-white {
+  background: #2A2E30 url('../../../assets/bg-img-white.svg') no-repeat bottom left;
+}

@@ -1,0 +1,11 @@
+<div class="px-5 pt-4 bg-[#fafafa] relative pb-6">
+  <div class="container z-10 h-full mx-auto">
+    <app-header></app-header>
+    <main class="mt-8">
+      <div class="w-full min-h-[85vh]">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
+<app-footer *ngIf="!(routeData | async)?.hideFooter"></app-footer>

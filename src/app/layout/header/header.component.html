@@ -1,0 +1,46 @@
+<header class="relative z-10 h-12">
+  <nav class="absolute z-10 w-full nav-menu">
+    <p-menubar [model]="$any(menuItems$ | async) || []">
+      <ng-template pTemplate="start">
+        <div class="ml-4">
+          <a [routerLink]="['']">
+            <img src="../../../assets/logo-header.svg" alt="logo" />
+          </a>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="end">
+        <div class="flex" *ngIf="authFacade.user$ | async as user">
+          <div class="flex flex-col items-end justify-center user">
+            <span class="user-firstname-lastname">{{ user.name }}</span>
+            <span class="user-role">{{ user.role?.at(0)?.name || "" }}</span>
+          </div>
+          <p-divider layout="vertical"></p-divider>
+          <div
+            class="flex items-center justify-center mr-5 cursor-pointer"
+            (click)="toggleUserMenu(userMenu)"
+          >
+            <img
+              [src]="user.photo || '../../../assets/profile-photo.png'"
+              alt="user photo"
+            />
+          </div>
+        </div>
+        <div
+          #userMenu
+          class="scale-y-0 absolute top-[2.5rem] right-0 -z-[1] bg-white shadow-[0px_4px_14px_rgba(0,0,0,0.1)] rounded-[0_0_4px_4px] w-[11.8125rem] flex flex-col pt-4 p-2 gap-3"
+        >
+          <ng-container *ngIf="authFacade.user$ | async as user">
+            <span class="secondary-text">{{ user.email }}</span>
+          </ng-container>
+          <span class="primary-text">Paramètres</span>
+          <button
+            class="bg-[#E95050] rounded text-white text-left p-2 primary-text"
+            (click)="logout()"
+          >
+            Deconnection
+          </button>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </nav>
+</header>

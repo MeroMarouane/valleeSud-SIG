@@ -1,0 +1,24 @@
+<div class="rounded-[6px] shadow-[0px_4px_10px_rgba(0,0,0,0.15)]">
+    <div class="w-full h-12 flex items-center text-start rounde-[6px] bg-[#f7f7f7] px-4">
+        <span>Clients</span>
+    </div>
+
+    <p-divider styleClass="divider"></p-divider>
+    <div class="bg-white rounded-[0_0_6px_6px]">
+        <app-clients-search-bar></app-clients-search-bar>
+        
+        <app-clients-item *ngFor="let client of clients$ | async" [client]="client"></app-clients-item>
+    </div>
+</div>
+<div class="mt-[16.5rem] w-[440px] mx-auto">
+    <div class="form-control">
+        <button
+          pButton
+          pRipple
+          label="Ajouter un nouveau client"
+          type="submit"
+          class="p-button-secondary"
+          (click)="openAddClientModal()"
+        ></button>
+    </div>
+</div>
